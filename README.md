@@ -94,6 +94,33 @@ The bot logs all activities to stdout. To save logs to a file when running as a 
 python bot.py >> bot.log 2>&1
 ```
 
+## Troubleshooting
+
+### 401 Unauthorized Error
+
+If you encounter a `401 Unauthorized` error when sending Telegram notifications:
+
+```
+ERROR - Failed to send Telegram notification: 401 Client Error: Unauthorized
+```
+
+**Solution:** This is typically caused by whitespace (spaces, tabs, or newlines) in your Telegram credentials. The bot now automatically strips whitespace from credentials, but ensure your `.env` file doesn't have extra whitespace:
+
+```env
+# Correct - no extra whitespace
+TELEGRAM_BOT_TOKEN=123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11
+TELEGRAM_CHAT_ID=123456789
+
+# Incorrect - has trailing whitespace (can cause 401 errors)
+TELEGRAM_BOT_TOKEN=123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11  
+TELEGRAM_CHAT_ID=123456789
+```
+
+Also verify:
+- Your bot token is valid and active (check with @BotFather)
+- Your bot token is complete and correctly copied
+- Your chat ID is correct
+
 ## License
 
 MIT
