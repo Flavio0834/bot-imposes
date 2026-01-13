@@ -41,8 +41,9 @@ class HEARMonitorBot:
             telegram_bot_token: Telegram bot API token
             telegram_chat_id: Telegram chat ID to send notifications to
         """
-        self.telegram_bot_token = telegram_bot_token
-        self.telegram_chat_id = telegram_chat_id
+        # Strip whitespace from credentials to prevent authentication issues
+        self.telegram_bot_token = telegram_bot_token.strip() if telegram_bot_token else telegram_bot_token
+        self.telegram_chat_id = telegram_chat_id.strip() if telegram_chat_id else telegram_chat_id
         self.main_url = "https://www.hear.fr/admissions/musique/candidats-en-licencednspmde-2-2/"
         self.base_pieces_url = "https://www.hear.fr/admissions/musique/pieces-imposees"
         self.target_text = "Pièces imposées 2026 - Prochainement disponible"
@@ -192,17 +193,17 @@ def main():
     # Load environment variables
     load_dotenv()
     
-    # Get credentials from environment variables
-    telegram_bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
-    telegram_chat_id = os.getenv('TELEGRAM_CHAT_ID')
+    # Get credentials from environment variables and strip whitespace
+    telegram_bot_token = os.getenv('TELEGRAM_BOT_TOKEN', '').strip()
+    telegram_chat_id = os.getenv('TELEGRAM_CHAT_ID', '').strip()
     
     # Validate credentials
     if not telegram_bot_token:
-        logger.error("TELEGRAM_BOT_TOKEN environment variable not set")
+        logger.error("TELEGRAM_BOT_TOKEN environment variable not set or empty")
         sys.exit(1)
     
     if not telegram_chat_id:
-        logger.error("TELEGRAM_CHAT_ID environment variable not set")
+        logger.error("TELEGRAM_CHAT_ID environment variable not set or empty")
         sys.exit(1)
     
     # Create and run bot
