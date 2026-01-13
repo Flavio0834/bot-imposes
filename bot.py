@@ -28,6 +28,10 @@ logger = logging.getLogger(__name__)
 
 class HEARMonitorBot:
     """Monitor HEAR website for changes and send Telegram notifications."""
+    
+    # Configuration constants
+    REQUEST_TIMEOUT = 15  # seconds
+    TELEGRAM_TIMEOUT = 10  # seconds
 
     def __init__(self, telegram_bot_token, telegram_chat_id):
         """
@@ -64,7 +68,7 @@ class HEARMonitorBot:
                 "text": message,
                 "parse_mode": "HTML"
             }
-            response = requests.post(url, data=data, timeout=10)
+            response = requests.post(url, data=data, timeout=self.TELEGRAM_TIMEOUT)
             response.raise_for_status()
             logger.info(f"Telegram notification sent successfully")
             return True
@@ -81,7 +85,7 @@ class HEARMonitorBot:
         """
         try:
             logger.info(f"Checking main page: {self.main_url}")
-            response = self.session.get(self.main_url, timeout=15)
+            response = self.session.get(self.main_url, timeout=self.REQUEST_TIMEOUT)
             response.raise_for_status()
             
             soup = BeautifulSoup(response.content, 'html.parser')
@@ -124,7 +128,7 @@ class HEARMonitorBot:
         for url in urls_to_check:
             try:
                 logger.info(f"Checking URL: {url}")
-                response = self.session.get(url, timeout=15)
+                response = self.session.get(url, timeout=self.REQUEST_TIMEOUT)
                 
                 # Check if it's NOT a 404
                 if response.status_code != 404:
