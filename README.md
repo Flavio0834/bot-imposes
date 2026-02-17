@@ -1,17 +1,12 @@
 # bot-imposes
 
-Little bot to check when program is published by superior music school (HEAR).
+Bot to monitor the HEAR (Haute école des arts du Rhin) admissions page for content changes.
 
-This bot monitors the HEAR (Haute école des arts du Rhin) website for updates about imposed pieces for 2026. It sends Telegram notifications when:
-
-1. **The page content changes** - Detects any modification to the main admissions page content
-2. The text "Pièces imposées 2026 - Prochainement disponible" is no longer present on the admissions page
-3. The imposed pieces pages (pieces-imposees variants) are no longer returning 404 errors
+This bot monitors the HEAR admissions page and sends Telegram notifications when any content changes are detected. Perfect for monitoring admission results and important updates.
 
 ## Features
 
-- 🔍 Monitors multiple URLs for changes
-- 🔔 **Detects any content changes on the main page**
+- 🔔 **Detects any content changes** on the admissions page
 - 📱 Sends Telegram notifications
 - 🔄 Designed to run as a cron job
 - 📝 Detailed logging
@@ -78,18 +73,11 @@ TELEGRAM_BOT_TOKEN=your_bot_token_here
 TELEGRAM_CHAT_ID=your_chat_id_here
 ```
 
-## Monitored URLs
+## Monitored URL
 
-The bot checks:
-1. Main page: https://www.hear.fr/admissions/musique/candidats-en-licencednspmde-2-2/
-   - **Monitors for any content changes using hash comparison**
-   - Checks if "Pièces imposées 2026 - Prochainement disponible" text is removed
-2. Pieces pages:
-   - https://www.hear.fr/admissions/musique/pieces-imposees
-   - https://www.hear.fr/admissions/musique/pieces-imposees-0
-   - https://www.hear.fr/admissions/musique/pieces-imposees-1
-   - https://www.hear.fr/admissions/musique/pieces-imposees-2
-   - https://www.hear.fr/admissions/musique/pieces-imposees-3
+The bot monitors:
+- Main page: https://www.hear.fr/admissions/musique/candidats-en-licencednspmde-2-2/
+  - **Monitors for any content changes using hash comparison**
 
 ## How It Works
 
@@ -97,6 +85,16 @@ The bot checks:
 The bot saves a hash of the normalized page content on first run. On subsequent runs, it compares the current content hash with the saved hash. If they differ, it sends a notification and updates the saved hash.
 
 The page state is stored in `page_state.json` (automatically created on first run).
+
+When a change is detected, you'll receive a Telegram notification like:
+```
+🔔 HEAR Page Update Detected! 🔔
+
+The content of the page has changed:
+https://www.hear.fr/admissions/musique/candidats-en-licencednspmde-2-2/
+
+Please check the page for updates!
+```
 
 ## Logging
 

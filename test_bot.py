@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test script to verify the bot's web scraping functionality without sending Telegram messages.
+Test script to verify the bot's page monitoring functionality without sending Telegram messages.
 """
 
 from bot import HEARMonitorBot
@@ -13,7 +13,7 @@ logging.basicConfig(
 )
 
 def test_bot():
-    """Test the bot's web scraping functionality."""
+    """Test the bot's page monitoring functionality."""
     print("=" * 60)
     print("Testing HEAR Monitor Bot (Dry Run - No Telegram Messages)")
     print("=" * 60)
@@ -21,7 +21,7 @@ def test_bot():
     # Create bot with dummy credentials (won't send messages)
     bot = HEARMonitorBot('dummy_token', 'dummy_chat_id', state_file='test_page_state.json')
     
-    print("\n1. Testing page content change detection...")
+    print("\nTesting page content change detection...")
     content_changed, message = bot.check_page_content_change()
     if content_changed is not None:
         if content_changed:
@@ -31,27 +31,6 @@ def test_bot():
             print("   ✓ Page content unchanged (or first run - state initialized)")
     else:
         print("   ✗ Error checking page content")
-    
-    print("\n2. Testing main page check...")
-    text_present, message = bot.check_main_page()
-    if text_present is not None:
-        if text_present:
-            print("   ✓ Target text is still present on main page")
-        else:
-            print("   ✓ Target text is NOT present on main page!")
-            print(f"   Message that would be sent:\n{message}")
-    else:
-        print("   ✗ Error checking main page")
-    
-    print("\n3. Testing pieces URLs check...")
-    available_urls, message = bot.check_pieces_urls()
-    if available_urls:
-        print(f"   ✓ Found {len(available_urls)} available URL(s)!")
-        for url, status in available_urls:
-            print(f"     - {url} (Status: {status})")
-        print(f"   Message that would be sent:\n{message}")
-    else:
-        print("   ✓ All pieces URLs still return 404 or contain error text")
     
     print("\n" + "=" * 60)
     print("Test completed successfully")
