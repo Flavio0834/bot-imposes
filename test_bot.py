@@ -19,9 +19,20 @@ def test_bot():
     print("=" * 60)
     
     # Create bot with dummy credentials (won't send messages)
-    bot = HEARMonitorBot('dummy_token', 'dummy_chat_id')
+    bot = HEARMonitorBot('dummy_token', 'dummy_chat_id', state_file='test_page_state.json')
     
-    print("\n1. Testing main page check...")
+    print("\n1. Testing page content change detection...")
+    content_changed, message = bot.check_page_content_change()
+    if content_changed is not None:
+        if content_changed:
+            print("   ✓ Page content has changed!")
+            print(f"   Message that would be sent:\n{message}")
+        else:
+            print("   ✓ Page content unchanged (or first run - state initialized)")
+    else:
+        print("   ✗ Error checking page content")
+    
+    print("\n2. Testing main page check...")
     text_present, message = bot.check_main_page()
     if text_present is not None:
         if text_present:
@@ -32,7 +43,7 @@ def test_bot():
     else:
         print("   ✗ Error checking main page")
     
-    print("\n2. Testing pieces URLs check...")
+    print("\n3. Testing pieces URLs check...")
     available_urls, message = bot.check_pieces_urls()
     if available_urls:
         print(f"   ✓ Found {len(available_urls)} available URL(s)!")
