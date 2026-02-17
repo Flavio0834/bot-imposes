@@ -235,7 +235,9 @@ class HEARMonitorBot:
         Check if the main page content has changed since last check.
         
         Returns:
-            tuple: (bool, str) - (has_changed, message)
+            tuple: (bool, str or None) - (has_changed, message) on success
+                   (None, None) on error
+                   (False, None) if unchanged or first run
         """
         logger.info(f"Checking for page content changes: {self.main_url}")
         
@@ -286,7 +288,9 @@ class HEARMonitorBot:
         
         # Check for page content changes
         content_changed, content_message = self.check_page_content_change()
-        if content_changed and content_message:
+        if content_changed is None:
+            logger.warning("Page content change detection failed - continuing with other checks")
+        elif content_changed and content_message:
             self.send_telegram_notification(content_message)
             notification_sent = True
         
