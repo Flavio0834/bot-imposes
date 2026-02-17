@@ -40,3 +40,7 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Bot state files
+page_state.json
+test_page_state.json
