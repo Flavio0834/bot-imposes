@@ -49,18 +49,18 @@ python bot.py
 
 ### Cron Job Setup
 
-To run the bot automatically every hour, add this to your crontab:
+To run the bot automatically every 10 minutes, add this to your crontab:
 
 ```bash
 # Edit your crontab
 crontab -e
 
 # Add this line (adjust the path to your installation):
-0 * * * * cd /path/to/bot-imposes && /usr/bin/python3 bot.py >> /var/log/bot-imposes.log 2>&1
+*/10 * * * * cd /path/to/bot-imposes && /usr/bin/python3 bot.py >> /var/log/bot-imposes.log 2>&1
 ```
 
 Example schedules:
-- Every hour: `0 * * * *`
+- Every 10 minutes: `*/10 * * * *`
 - Every 30 minutes: `*/30 * * * *`
 - Every day at 8 AM: `0 8 * * *`
 
@@ -76,7 +76,7 @@ TELEGRAM_CHAT_ID=your_chat_id_here
 ## Monitored URL
 
 The bot monitors:
-- Main page: https://www.hear.fr/admissions/musique/candidats-en-licencednspmde-2-2/
+- Main page: https://www.hear.fr/admissions/resultats-admissions/
   - **Monitors for any content changes using hash comparison**
 
 ## How It Works
@@ -91,7 +91,7 @@ When a change is detected, you'll receive a Telegram notification like:
 🔔 HEAR Page Update Detected! 🔔
 
 The content of the page has changed:
-https://www.hear.fr/admissions/musique/candidats-en-licencednspmde-2-2/
+https://www.hear.fr/admissions/resultats-admissions/
 
 Please check the page for updates!
 ```

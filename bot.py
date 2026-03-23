@@ -44,7 +44,7 @@ class HEARMonitorBot:
         """
         self.telegram_bot_token = telegram_bot_token
         self.telegram_chat_id = telegram_chat_id
-        self.main_url = "https://www.hear.fr/admissions/musique/candidats-en-licencednspmde-2-2/"
+        self.main_url = "https://www.hear.fr/admissions/resultats-admissions/"
         self.state_file = Path(state_file)
         self.session = requests.Session()
         self.session.headers.update({
