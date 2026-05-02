@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Bot to monitor HEAR website for page content changes.
+Bot to monitor ISDAT website for page content changes.
 
-This bot monitors the HEAR admissions page for any content changes
+This bot monitors the ISDAT admissions page for any content changes
 and sends Telegram notifications when updates are detected.
 
 Useful for monitoring admission results and other important updates.
@@ -26,8 +26,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-class HEARMonitorBot:
-    """Monitor HEAR website for changes and send Telegram notifications."""
+class ISDATMonitorBot:
+    """Monitor ISDAT website for changes and send Telegram notifications."""
     
     # Configuration constants
     REQUEST_TIMEOUT = 15  # seconds
@@ -44,7 +44,7 @@ class HEARMonitorBot:
         """
         self.telegram_bot_token = telegram_bot_token
         self.telegram_chat_id = telegram_chat_id
-        self.main_url = "https://www.hear.fr/admissions/resultats-admissions/"
+        self.main_url = "https://www.isdat.fr/admission-vie-etudiante/admission-formation-initiale/musique/"
         self.state_file = Path(state_file)
         self.session = requests.Session()
         self.session.headers.update({
@@ -172,7 +172,7 @@ class HEARMonitorBot:
         if current_hash != previous_hash:
             logger.info("Page content has changed!")
             message = (
-                f"🔔 <b>HEAR Page Update Detected!</b> 🔔\n\n"
+                f"🔔 <b>ISDAT Page Update Detected!</b> 🔔\n\n"
                 f"The content of the page has changed:\n"
                 f"{self.main_url}\n\n"
                 f"Please check the page for updates!"
@@ -228,7 +228,7 @@ def main():
         sys.exit(1)
     
     # Create and run bot
-    bot = HEARMonitorBot(telegram_bot_token, telegram_chat_id)
+    bot = ISDATMonitorBot(telegram_bot_token, telegram_chat_id)
     
     try:
         bot.run()

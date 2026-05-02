@@ -1,8 +1,8 @@
 # bot-imposes
 
-Bot to monitor the HEAR (Haute école des arts du Rhin) admissions page for content changes.
+Bot to monitor the ISDAT admissions page for content changes.
 
-This bot monitors the HEAR admissions page and sends Telegram notifications when any content changes are detected. Perfect for monitoring admission results and important updates.
+This bot monitors the ISDAT music admissions page and sends Telegram notifications when any content changes are detected. Perfect for monitoring admission results and important updates.
 
 ## Features
 
@@ -76,7 +76,7 @@ TELEGRAM_CHAT_ID=your_chat_id_here
 ## Monitored URL
 
 The bot monitors:
-- Main page: https://www.hear.fr/admissions/resultats-admissions/
+- Main page: https://www.isdat.fr/admission-vie-etudiante/admission-formation-initiale/musique/
   - **Monitors for any content changes using hash comparison**
 
 ## How It Works
@@ -88,10 +88,10 @@ The page state is stored in `page_state.json` (automatically created on first ru
 
 When a change is detected, you'll receive a Telegram notification like:
 ```
-🔔 HEAR Page Update Detected! 🔔
+🔔 ISDAT Page Update Detected! 🔔
 
 The content of the page has changed:
-https://www.hear.fr/admissions/resultats-admissions/
+https://www.isdat.fr/admission-vie-etudiante/admission-formation-initiale/musique/
 
 Please check the page for updates!
 ```
