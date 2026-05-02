@@ -3,7 +3,7 @@
 Test script to verify the bot's page monitoring functionality without sending Telegram messages.
 """
 
-from bot import HEARMonitorBot
+from bot import ISDATMonitorBot
 import logging
 
 # Configure logging
@@ -15,11 +15,11 @@ logging.basicConfig(
 def test_bot():
     """Test the bot's page monitoring functionality."""
     print("=" * 60)
-    print("Testing HEAR Monitor Bot (Dry Run - No Telegram Messages)")
+    print("Testing ISDAT Monitor Bot (Dry Run - No Telegram Messages)")
     print("=" * 60)
     
     # Create bot with dummy credentials (won't send messages)
-    bot = HEARMonitorBot('dummy_token', 'dummy_chat_id', state_file='test_page_state.json')
+    bot = ISDATMonitorBot('dummy_token', 'dummy_chat_id', state_file='test_page_state.json')
     
     print("\nTesting page content change detection...")
     content_changed, message = bot.check_page_content_change()
